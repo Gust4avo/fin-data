@@ -20,7 +20,6 @@ print(f"Máxima: {df['valor'].max()}%")
 print(f"Média: {df['valor'].mean():.2f}%")
 print(f"Moda: {df['valor'].mode()[0]}%")
 
-# Agrupamento por ano
 df['ano'] = df['data'].dt.year
 media_ano = df.groupby('ano')['valor'].mean()
 print("\nMédia anual da SELIC:")
