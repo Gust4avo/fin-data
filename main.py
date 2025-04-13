@@ -1,7 +1,7 @@
 import os
 from etl.coletor_bcb import coletar_dados_selic
 from etl.limpeza_selic import limpar_dados_selic
-from etl.analise_selic import calcular_media_anual_selic
+import etl.analise_selic
 
 # Garante que o diretório de dados existe
 os.makedirs("etl/dados", exist_ok=True)

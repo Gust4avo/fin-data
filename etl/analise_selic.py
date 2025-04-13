@@ -1,13 +1,29 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def calcular_media_anual(CAMINHO_ARQUIVO):
+def calcular_media_anual_selic(CAMINHO_ARQUIVO):
+    """
+    Calcula a média anual da taxa SELIC a partir de um arquivo CSV.
+    
+    Args:
+        CAMINHO_ARQUIVO (str): Caminho para o arquivo CSV com os dados da SELIC
+        
+    Returns:
+        pandas.Series: Série com as médias anuais da SELIC
+    """
     df = pd.read_csv(CAMINHO_ARQUIVO)
     df['data'] = pd.to_datetime(df['data'])
+    df['ano'] = df['data'].dt.year  # Extrai o ano da data
     media_ano = df.groupby('ano')['valor'].mean()
     return media_ano
 
 def exibir_estatisticas(df):
+    """
+    Exibe estatísticas descritivas do DataFrame da SELIC.
+    
+    Args:
+        df (pandas.DataFrame): DataFrame com os dados da SELIC
+    """
     print("\n📋 Informações do DataFrame:")
     print(df.info())
 
@@ -23,8 +39,14 @@ def exibir_estatisticas(df):
     print(f" Moda: {df['valor'].mode()[0]}%")
 
 def plotar_media_anual(media_ano):
+    """
+    Plota um gráfico da média anual da SELIC.
+    
+    Args:
+        media_ano (pandas.Series): Série com as médias anuais da SELIC
+    """
     plt.figure(figsize=(10, 5))
-    plt.plot(media_ano.index, media_ano.values * 100, marker='o', linestyle='-', color='green')
+    plt.plot(media_ano.index, media_ano.values, marker='o', linestyle='-', color='green')
     plt.title('Média anual da SELIC')
     plt.xlabel('Ano')
     plt.ylabel('Taxa média (%)')
@@ -33,11 +55,13 @@ def plotar_media_anual(media_ano):
     plt.show()
 
 if __name__ == "__main__":
-    df = pd.read_csv("etl/dados/Selic_diaria.csv")
+    CAMINHO_ARQUIVO = "etl/dados/Selic_diaria.csv"
+    df = pd.read_csv(CAMINHO_ARQUIVO)
     df['data'] = pd.to_datetime(df['data'])
     df['valor'] = df['valor'].astype(float)
+    df['ano'] = df['data'].dt.year
 
-    media_ano = calcular_media_anual(df)
+    media_ano = calcular_media_anual_selic(CAMINHO_ARQUIVO)
 
     exibir_estatisticas(df)
     print("\n Média anual da SELIC:")
