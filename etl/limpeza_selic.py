@@ -1,14 +1,13 @@
 import pandas as pd
 import os
 
-def limpar_dados_selic(CAMINHO_ARQUIVO):
-    df = pd.read_csv(CAMINHO_ARQUIVO)
+def limpar_dados_selic(caminho_entrada, caminho_saida):
+    df = pd.read_csv(caminho_entrada)
 
     df['data'] = pd.to_datetime(df['data'])
     df['valor'] = df['valor'].astype(str).str.replace(',', '.').astype(float)
 
-    if not os.path.exists("dados"):
-        os.makedirs("dados")
+    os.makedirs(os.path.dirname(caminho_saida), exist_ok=True)
 
-    df.to_csv(CAMINHO_ARQUIVO, index=False)
-    print(" Dados limpos e formatados.")
+    df.to_csv(caminho_saida, index=False)
+    print(" Dados limpos e salvos em:", caminho_saida)
