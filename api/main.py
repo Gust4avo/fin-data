@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from etl.analise_selic import calcular_media_anual_selic
 
 
+CAMINHO_DADOS = "etl/dados/Selic_diaria.csv"
+
 app = FastAPI()
 
 @app.get("/")
@@ -32,6 +34,6 @@ def selic_atual():
 
 @app.get("/selic/media-anual")
 def selic_media_anual():
-    caminho_csv = "etl/dados/selic_limpo.csv"
-    media = calcular_media_anual_selic(caminho_csv)
-    return media.round(2).to_dict()
+    caminho = "etl/dados/Selic_diaria.csv"
+    media_ano = calcular_media_anual_selic(caminho)
+    return media_ano.round(2).to_dict()
