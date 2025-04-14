@@ -1,8 +1,14 @@
+import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import pandas as pd
+from etl.analise_selic import calcular_media_anual_selic
+
 
 app = FastAPI()
+
+@app.get("/")
+def root():
+    return {"mensagem" : "API do projeto fin-data está no ar!"}
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,5 +32,6 @@ def selic_atual():
 
 @app.get("/selic/media-anual")
 def selic_media_anual():
-    media_ano = df.groupby("ano")["valor"].mean().round(2)
-    return media_ano.to_dict()
+    caminho_csv = "etl/dados/selic_limpo.csv"
+    media = calcular_media_anual_selic(caminho_csv)
+    return media.round(2).to_dict()
