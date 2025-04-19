@@ -23,7 +23,7 @@ O **fin-data** é uma iniciativa pessoal criada para ajudar qualquer pessoa, mes
    uvicorn api.main:app --reload
    uvicorn api.main:app --reload
 
-##Exemplos de Uso
+## **Exemplos de Uso
 Investidores de Renda Fixa: Acompanhe como a SELIC afeta a rentabilidade de produtos como CDBs e Tesouro Direto.
 
 Planejamento Financeiro: Use a média anual da SELIC para entender o impacto de mudanças nas taxas de juros sobre seus investimentos.
