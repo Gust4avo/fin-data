@@ -19,3 +19,36 @@ O **fin-data** é uma iniciativa pessoal criada para ajudar qualquer pessoa, mes
    ```bash
    git clone https://github.com/seu-usuario/fin-data.git
    cd fin-data
+   pip install -r requirements.txt
+   uvicorn api.main:app --reload
+   uvicorn api.main:app --reload
+
+##Exemplos de Uso
+Investidores de Renda Fixa: Acompanhe como a SELIC afeta a rentabilidade de produtos como CDBs e Tesouro Direto.
+
+Planejamento Financeiro: Use a média anual da SELIC para entender o impacto de mudanças nas taxas de juros sobre seus investimentos.
+
+Análise Econômica: Analistas podem estudar a SELIC para prever tendências econômicas e o impacto da política monetária.
+
+Educação Financeira: Ferramenta útil para ensinar conceitos econômicos de forma interativa e acessível.
+
+Tecnologias
+Python
+
+FastAPI
+
+Streamlit
+
+pandas
+
+requests
+
+Futuras Melhorias
+Integração com IA para explicações mais detalhadas sobre os dados
+
+Adição de dados sobre ações e comparações entre diferentes tipos de investimento
+
+Deploy em Nuvem (AWS)
+
+
+
