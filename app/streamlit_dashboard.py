@@ -1,11 +1,10 @@
 import streamlit as st
 import pandas as pd
 import requests
-import matplotlib.pylab as plt
 import altair as alt
 
 # Configurações da página
-st.set_page_config(layout="centered", page_title="Média SELIC (API)")
+st.set_page_config(layout="centered", page_title="Média SELIC")
 st.title("Visualização da taxa Selic")
 
 st.markdown("""
@@ -15,7 +14,7 @@ Os dados estão sendo consumidos via **API FastAPI**.
 """)
 
 try:
-    resposta = requests.get("http://127.0.0.1:8000/selic/media-anual-json")
+    resposta = requests.get("http://localhost:8000/selic/media-anual-json")
     resposta.raise_for_status()
     media_anual_dict = resposta.json()
 
@@ -24,8 +23,9 @@ try:
         media_anual = pd.Series(media_anual_dict, name="Média SELIC")
         media_anual.index = media_anual.index.astype(int)
 
-        st.subheader("📊 Média anual Selic (via API)")
+        st.subheader("📊 Média anual Selic")
         st.write(media_anual.round(2))
+        st.bar_chart(media_anual)  
 
         st.subheader("📉 Gráfico da média anual (geral)")
         st.bar_chart(media_anual)
@@ -41,6 +41,19 @@ try:
             tooltip=["ano", "valor"]
         ).properties(width=600, height=400)
         st.altair_chart(grafico, use_container_width=True)
+
+
+        st.subheader("Últimos 5 anos da média SELIC")
+
+        df_recentes = df_altair.sort_values("ano", ascending=False).head(5)
+        df_recentes = df_recentes.sort_values("ano")
+        grafico_recentes = alt.Chart(df_recentes).mark_bar(color="#FF7043").encode(
+    x=alt.X("ano:O", title="Ano"),
+    y=alt.Y("valor:Q", title="Média Anual SELIC"),
+    tooltip=["ano", "valor"]
+    ).properties(width=600, height=400)
+
+        st.altair_chart(grafico_recentes, use_container_width=True)
 
         # Botão de download
         csv = df_altair.to_csv(index=False).encode("utf-8")
