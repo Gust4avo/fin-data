@@ -94,3 +94,5 @@ if __name__ == "__main__":
     plotar_media_anual(media_ano)
 
     salvar_grafico_media_anual(media_ano, "etl/dados/grafico_media_selic.png")
+    media_ano.to_frame(name="media_selic").reset_index().to_csv("etl/dados/selic_media_anual.csv", index=False)
+    print("\n CSV com média anual da SELIC salvo com sucesso!")
