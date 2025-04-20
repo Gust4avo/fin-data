@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 from datetime import datetime
-import os  # Importar a biblioteca os para manipulação de diretórios
+import os
 
 def coletar_dados_selic(CAMINHO_ARQUIVO):
     pasta = os.path.dirname(CAMINHO_ARQUIVO)
