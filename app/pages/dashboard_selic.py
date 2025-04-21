@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import altair as alt
 
-# Configuração da página
 st.set_page_config(layout="centered", page_title="Média SELIC")
 st.title("Visualização da taxa Selic")
 st.markdown("""
@@ -12,12 +11,10 @@ calculada a partir dos valores diários disponibilizados pela API do **Banco Cen
 Você pode filtrar os anos desejados ou baixar os dados em CSV.  
 """)
 
-# Carregamento e preparação dos dados
 df = pd.read_csv("etl/dados/selic_limpo.csv")
 df["data"] = pd.to_datetime(df["data"])
 df["ano"] = df["data"].dt.year
 
-# Cálculo da média anual
 media_anual = df.groupby("ano")["valor"].mean()
 
 # Exibição da média geral

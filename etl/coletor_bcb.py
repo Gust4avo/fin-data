@@ -2,25 +2,35 @@ import requests
 import pandas as pd
 from datetime import datetime
 import os
+from utils import garantir_diretorio
+from config import SELIC_API_URL
 
-def coletar_dados_selic(CAMINHO_ARQUIVO):
-    pasta = os.path.dirname(CAMINHO_ARQUIVO)
-    if not os.path.exists(pasta):
-        os.makedirs(pasta)
+def coletar_dados_selic(caminho_arquivo):
+    """
+    Coleta dados da SELIC da API do Banco Central e salva em CSV.
+    
+    Args:
+        caminho_arquivo (str): Caminho onde o arquivo CSV será salvo
+    """
+    garantir_diretorio(caminho_arquivo)
 
-    data_inicial = "01/01/2020"
-    data_final = datetime.today().strftime("%d/%m/%Y")
+    try:
+        response = requests.get(SELIC_API_URL)
 
-    url = f"https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados?formato=json&dataInicial={data_inicial}&dataFinal={data_final}"
-    response = requests.get(url)
+        if response.status_code == 200:
+            dados = response.json()
+            df = pd.DataFrame(dados)
+            df['data'] = pd.to_datetime(df['data'], format='%d/%m/%Y')
+            df['valor'] = df['valor'].astype(float)
 
-    if response.status_code == 200:
-        dados = response.json()
-        df = pd.DataFrame(dados)
-        df['data'] = pd.to_datetime(df['data'], format='%d/%m/%Y')
-        df['valor'] = df['valor'].astype(float)
+            df.to_csv(caminho_arquivo, index=False)
+            print(f"✅ Dados da SELIC salvos com sucesso em '{caminho_arquivo}'.")
+        else:
+            print(f"❌ Erro ao acessar a API da SELIC: Status {response.status_code}")
+    
+    except Exception as erro:
+        print(f"❌ Ocorreu um erro ao coletar SELIC: {erro}")
 
-        df.to_csv(CAMINHO_ARQUIVO, index=False)  # Salvar no caminho recebido
-        print(f"Dados salvos com sucesso em '{CAMINHO_ARQUIVO}'.")
-    else:
-        print(f"Erro ao acessar a API: {response.status_code}")
+if __name__ == "__main__":
+    from config import SELIC_RAW
+    coletar_dados_selic(SELIC_RAW)

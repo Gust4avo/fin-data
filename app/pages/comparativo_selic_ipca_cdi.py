@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import os
 
-# === Configuração da página ===
+
 st.set_page_config(
     page_title="Comparativo SELIC x IPCA x CDI",
     layout="centered"
@@ -13,24 +13,27 @@ st.set_page_config(
 CAMINHO_BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 CAMINHO_SELIC = os.path.join(CAMINHO_BASE, "etl/dados/selic_media_anual.csv")
 CAMINHO_IPCA = os.path.join(CAMINHO_BASE, "etl/dados/ipca_anual.csv")
-CAMINHO_CDI = os.path.join(CAMINHO_BASE, "etl/dados/cdi_anual.csv")
+CAMINHO_CDI = os.path.join(CAMINHO_BASE, "etl/dados/cdi_media_anual.csv")
 
 # === Título da página ===
 st.title("Comparativo: SELIC x Inflação (IPCA) x CDI")
 
-# === Carregar dados da SELIC ===
+
 df_selic = pd.read_csv(CAMINHO_SELIC)
-df_selic = df_selic.sort_values("ano")
-anos = df_selic["ano"]
-selic = df_selic["media_selic"]
-
-# === Carregar dados IPCA do SIDRA ===
 df_ipca = pd.read_csv(CAMINHO_IPCA)
-ipca = df_ipca["ipca"]
-
-# === Carregar dados CDI ===
 df_cdi = pd.read_csv(CAMINHO_CDI)
-cdi = df_cdi["cdi"]
+
+
+
+# Fazendo merge para alinhar os dados
+df_merged = df_selic.merge(df_ipca, on="ano", how="inner")
+df_merged = df_merged.merge(df_cdi, on="ano", how="inner")
+
+
+anos = df_merged["ano"]
+selic = df_merged["media_selic"]
+ipca = df_merged["valor"]
+cdi = df_merged["media_cdi"]
 
 # === Seleção pelo usuário ===
 opcoes = st.multiselect(
