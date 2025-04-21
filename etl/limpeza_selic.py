@@ -5,7 +5,11 @@ def limpar_dados_selic(caminho_entrada, caminho_saida):
     df = pd.read_csv(caminho_entrada)
 
     df['data'] = pd.to_datetime(df['data'])
-    df['valor'] = df['valor'].astype(str).str.replace(',', '.').astype(float)
+    
+
+    df['valor'] = df['valor'].astype(str).str.replace(',', '.')
+    df['valor'] = pd.to_numeric(df['valor'], errors='coerce') 
+    df = df.dropna()
 
     os.makedirs(os.path.dirname(caminho_saida), exist_ok=True)
 
