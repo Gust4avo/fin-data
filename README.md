@@ -1,42 +1,91 @@
-# **fin-data** 📊
+# 📊 fin-data
 
-## **Sobre o Projeto**  
-O **fin-data** é uma iniciativa pessoal criada para ajudar qualquer pessoa, mesmo sem experiência em finanças, a entender como a **taxa SELIC** impacta seus investimentos. Usando dados abertos do Banco Central, **Python** e **Streamlit**, o projeto oferece uma maneira simples e interativa de analisar a SELIC ao longo dos anos e tomar decisões financeiras mais informadas.
+Projeto de engenharia de dados e visualização interativa com foco em educação financeira acessível.
 
----
+## 💡 Propósito
 
-## **Funcionalidades**  
-- **Visualização interativa da média anual da SELIC**
-- **Filtros por ano** para análises personalizadas
-- **Download dos dados em CSV** para uso pessoal
-- **API** para acessar dados atualizados da SELIC
-- **Futuro: IA para explicações mais detalhadas**
+O **fin-data** nasceu de uma inquietação real: muitas pessoas não guardam dinheiro por acharem complicado investir ou por não entenderem como a economia influencia suas decisões.
+
+🎯 A proposta é transformar dados econômicos (como a **taxa SELIC**) em **informações visuais e simples**, ajudando pessoas comuns a entenderem melhor seus impactos no dia a dia.
 
 ---
 
-## **Como Usar**  
-1. **Clone o repositório**  
-   ```bash
-   git clone https://github.com/seu-usuario/fin-data.git
-   cd fin-data
-   pip install -r requirements.txt
-   uvicorn api.main:app --reload
-   uvicorn api.main:app --reload
+## 🚀 O que o projeto já faz
 
-## **Exemplos de Uso**
-- **Investidores de Renda Fixa**: Acompanhe como a SELIC afeta a rentabilidade de produtos como CDBs e Tesouro Direto.  
-- **Planejamento Financeiro**: Use a média anual da SELIC para entender o impacto de mudanças nas taxas de juros sobre seus investimentos.  
-- **Análise Econômica**: Analistas podem estudar a SELIC para prever tendências econômicas e o impacto da política monetária.  
-- **Educação Financeira**: Ferramenta útil para ensinar conceitos econômicos de forma interativa e acessível.
+✅ **Coleta dados diretamente da API do Banco Central**  
+✅ **Processa os dados com ETL em Python**  
+✅ **Calcula a média anual da SELIC automaticamente**  
+✅ **Exibe os dados com visualização interativa em Streamlit**  
+✅ **Permite filtrar anos, comparar com CDI e IPCA**  
+✅ **Oferece download em CSV dos dados tratados**
 
-## **Tecnologias**
-- Python  
-- FastAPI  
-- Streamlit  
-- pandas  
-- requests
+---
 
-## **Futuras Melhorias**
-- Integração com IA para explicações mais detalhadas sobre os dados  
-- Adição de dados sobre ações e comparações entre diferentes tipos de investimento  
-- Deploy em Nuvem (AWS)
+## 👨‍💻 Tecnologias utilizadas
+
+- Python 3.10+
+- FastAPI (serviço backend com endpoints de dados)
+- Streamlit (dashboard interativo)
+- Matplotlib & Pandas (visualização e análise)
+- Banco Central do Brasil (API pública)
+- Arquitetura ETL (Extração, Transformação, Carga)
+
+---
+
+## 🧹 Estrutura do Projeto
+
+```
+fin-data/
+🔜 api/                  # Endpoints FastAPI
+├── routers/
+└── main.py
+🔜 app/                  # Interface interativa Streamlit
+├── pages/
+│   ├── comparativo_selic_ipca_cdi.py
+│   ├── dashboard_selic.py
+│   └── home.py
+└── streamlit_dashboard.py
+🔜 etl/                  # Scripts de coleta, limpeza e análise
+├── dados/            # CSVs e figuras geradas
+├── analise_selic.py
+├── analise_ipca.py
+├── analise_cdi.py
+├── limpeza_selic.py
+├── coletor_bcb.py
+└── visualiza_selic.py
+main.py               # Orquestrador do pipeline
+requirements.txt
+README.md
+```
+
+---
+
+## 🔮 Próximos desafios
+
+- [ ] Criar explicações automáticas com **IA integrada (ChatGPT API)**
+- [ ] Adicionar indicadores como **poupança e Tesouro Selic**
+- [ ] **Simplificar visualmente os dados** para serem compreendidos até por quem nunca estudou economia
+- [ ] Criar um modo "educativo" com **textos acessíveis e exemplos práticos**
+- [ ] Publicar o projeto na **AWS (EC2 ou Lambda + S3)**
+- [ ] Melhorar responsividade da interface (mobile-friendly)
+
+---
+
+## 📷 Exemplo do Dashboard
+
+![Exemplo de gráfico comparativo](figuras/grafico_media_selic.png)
+
+---
+
+## 🤝 Contribua ou colabore
+
+Se você acredita que a tecnologia pode ser uma ponte para **educação e inclusão financeira**, bora trocar uma ideia!  
+Sugestões, feedbacks ou parcerias são muito bem-vindos. ✨
+
+---
+
+## 📬 Contato
+
+[Gustavo](https://www.linkedin.com/in/seu-perfil)  
+Engenheiro de Dados em formação | Explorador de projetos com propósito
+
