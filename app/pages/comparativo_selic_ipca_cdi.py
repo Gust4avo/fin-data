@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import os
 
-
+# === Configuração da página ===
 st.set_page_config(
     page_title="Comparativo SELIC x IPCA x CDI",
     layout="centered"
@@ -18,49 +18,58 @@ CAMINHO_CDI = os.path.join(CAMINHO_BASE, "etl/dados/cdi_media_anual.csv")
 # === Título da página ===
 st.title("Comparativo: SELIC x Inflação (IPCA) x CDI")
 
-
+# === Leitura dos dados ===
 df_selic = pd.read_csv(CAMINHO_SELIC)
 df_ipca = pd.read_csv(CAMINHO_IPCA)
 df_cdi = pd.read_csv(CAMINHO_CDI)
 
-
-
-# Fazendo merge para alinhar os dados
+# === Merge para alinhar os anos entre os três DataFrames ===
 df_merged = df_selic.merge(df_ipca, on="ano", how="inner")
 df_merged = df_merged.merge(df_cdi, on="ano", how="inner")
 
-
+# === Preparação dos dados ===
 anos = df_merged["ano"]
-selic = df_merged["media_selic"]
-ipca = df_merged["valor"]
-cdi = df_merged["media_cdi"]
+selic = df_merged["media_selic"] 
+ipca = df_merged["valor"]           
+cdi = df_merged["media_cdi"]       
 
-# === Seleção pelo usuário ===
+# === Seletor interativo dos indicadores ===
 opcoes = st.multiselect(
     "Escolha os indicadores para comparar com a SELIC:",
-    ["Inflação (IPCA)", "CDI"]
+    ["Inflação (IPCA)", "CDI"],
+    default=["Inflação (IPCA)", "CDI"]
 )
 
-# === Gerar o gráfico ===
-fig, ax = plt.subplots()
+# === Criação do gráfico ===
+fig, ax = plt.subplots(figsize=(10, 6))
 
 # Linha da SELIC
 ax.plot(anos, selic, label="SELIC", color="blue", linewidth=2, marker="o")
 
-# Linha da IPCA se escolhida
+# Linha da IPCA se selecionada
 if "Inflação (IPCA)" in opcoes:
     ax.plot(anos, ipca, label="Inflação (IPCA)", color="orange", linewidth=2, marker="s")
 
-# Linha do CDI se escolhida
+# Linha do CDI se selecionado
 if "CDI" in opcoes:
     ax.plot(anos, cdi, label="CDI", color="green", linewidth=2, marker="^")
 
-# Ajustes visuais
+# === Personalização do gráfico ===
 ax.set_title("Comparativo Anual", fontsize=16)
 ax.set_xlabel("Ano")
 ax.set_ylabel("Taxa (%)")
 ax.legend()
 ax.grid(True)
 
-# Exibir no Streamlit
+# === Exibir no Streamlit ===
 st.pyplot(fig)
+
+# === Exibir tabela com os dados utilizados ===
+st.subheader("Dados utilizados no gráfico")
+df_display = pd.DataFrame({
+    "Ano": anos,
+    "SELIC (%)": selic.round(2),
+    "IPCA (%)": ipca.round(2),
+    "CDI (%)": cdi.round(2)
+})
+st.dataframe(df_display)
