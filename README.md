@@ -79,8 +79,3 @@ README.md
 
 ---
 
-## 📬 Contato
-
-[Gustavo](https://www.linkedin.com/in/seu-perfil)  
-Engenheiro de Dados em formação | Explorador de projetos com propósito
-
