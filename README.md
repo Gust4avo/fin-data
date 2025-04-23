@@ -77,11 +77,6 @@ README.md
 
 ---
 
-## 🤝 Contribua ou colabore
-
-Se você acredita que a tecnologia pode ser uma ponte para **educação e inclusão financeira**, bora trocar uma ideia!  
-Sugestões, feedbacks ou parcerias são muito bem-vindos. ✨
-
 ---
 
 ## 📬 Contato
