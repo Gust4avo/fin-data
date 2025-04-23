@@ -73,7 +73,7 @@ README.md
 
 ## 📷 Exemplo do Dashboard
 
-![Exemplo de gráfico comparativo](figuras/grafico_media_selic.png)
+![Exemplo de gráfico comparativo](figuras/comparativo_selic_ipca_cdi.png)
 
 ---
 
