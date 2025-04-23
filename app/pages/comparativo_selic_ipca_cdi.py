@@ -15,8 +15,8 @@ CAMINHO_SELIC = os.path.join(CAMINHO_BASE, "etl/dados/selic_media_anual.csv")
 CAMINHO_IPCA = os.path.join(CAMINHO_BASE, "etl/dados/ipca_anual.csv")
 CAMINHO_CDI = os.path.join(CAMINHO_BASE, "etl/dados/cdi_media_anual.csv")
 
-# === Título da página ===
-st.title("Comparativo: SELIC x Inflação (IPCA) x CDI")
+# === Título a página ===
+st.title("Comparativo Anual - SELIC, IPCA e CDI (2020–2025)")
 
 # === Leitura dos dados ===
 df_selic = pd.read_csv(CAMINHO_SELIC)
@@ -48,7 +48,7 @@ ax.plot(anos, selic, label="SELIC", color="blue", linewidth=2, marker="o")
 
 # Linha da IPCA se selecionada
 if "Inflação (IPCA)" in opcoes:
-    ax.plot(anos, ipca, label="Inflação (IPCA)", color="orange", linewidth=2, marker="s")
+    ax.plot(anos, ipca, label="Inflação (IPCA)", color="red", linewidth=2, marker="s")
 
 # Linha do CDI se selecionado
 if "CDI" in opcoes:

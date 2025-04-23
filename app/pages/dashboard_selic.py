@@ -25,7 +25,7 @@ st.write(media_anual.round(2))
 st.subheader("📉 Gráfico da média anual (geral)")
 st.bar_chart(media_anual)
 
-# 🔽 Seletor de anos - só aparece aqui embaixo
+# Seletor de anos - só aparece aqui embaixo
 st.subheader("🔍 Filtrar anos para visualização detalhada")
 anos_disponiveis = df['ano'].unique()
 anos_selecionados = st.multiselect(
