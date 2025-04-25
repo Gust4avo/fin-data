@@ -3,11 +3,17 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import os
 
-# === Configuração da página ===
-st.set_page_config(
-    page_title="Comparativo SELIC x IPCA x CDI",
-    layout="centered"
-)
+st.set_page_config(page_title=" FinData ", layout="centered")
+st.title("Bem-vindo ao FinData")
+st.markdown("""
+Bem-vindo ao **Fin-Data**!  
+Aqui você pode visualizar e comparar três importantes indicadores financeiros do Brasil:
+
+- **SELIC**: taxa básica de juros do país
+- **IPCA**: índice oficial de inflação
+- **CDI**: taxa média do mercado interbancário
+            
+""")
 
 # === Caminhos seguros para os arquivos ===
 CAMINHO_BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
