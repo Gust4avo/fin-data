@@ -1,18 +1,38 @@
-# app/streamlit_dashboard.py
 import streamlit as st
 
-st.set_page_config(page_title=" FinData ", layout="centered")
-st.title("Bem-vindo ao FinData")
-st.markdown("""
-Aqui você pode visualizar e comparar três importantes indicadores financeiros do Brasil:
-
-- **SELIC**: taxa básica de juros do país
-- **IPCA**: índice oficial de inflação
-- **CDI**: taxa média do mercado interbancário
-            
-""")
-
-st.sidebar.title("Navegação")
-st.sidebar.success("Selecione uma página acima.")
+# Espaçar um pouco do topo
+st.write("")
+st.write("")
 
 
+caminho_icon = "figuras/icon.png"
+# imagem do topo
+st.image(caminho_icon, width=100)  # ícone CDN
+
+# Título centralizado
+st.markdown("<h1 style='text-align: center; color: white;'>Bem-vindo ao FinData</h1>", unsafe_allow_html=True)
+
+st.write("")
+st.write("")
+
+# Card bonito com as informações
+with st.container():
+    st.markdown(
+        """
+        <div style="background-color: #262730; padding: 20px; border-radius: 10px;">
+            <h3 style="color: #4CAF50;">📊 O que você pode acompanhar aqui:</h3>
+            <ul style="color: white; font-size: 18px;">
+                <li>✅ <b>SELIC</b>: taxa básica de juros do país</li>
+                <li>✅ <b>IPCA</b>: índice oficial de inflação</li>
+                <li>✅ <b>CDI</b>: taxa média do mercado interbancário</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Um espaço final
+st.write("")
+st.write("")
+st.divider()
+st.caption("FinData © 2025 - Projeto em desenvolvimento 🚀")
