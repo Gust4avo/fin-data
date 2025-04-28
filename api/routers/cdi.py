@@ -5,7 +5,7 @@ import pandas as pd
 from config import CDI_FILE
 from utils import ler_dados_financeiros
 
-router = APIRouter()
+router = APIRouter(prefix="/cdi", tags=["CDI"])
 
 @router.get("/media-anual")
 def media_anual_json():
@@ -13,7 +13,7 @@ def media_anual_json():
     try:
         media = calcular_media_anual_cdi(CDI_FILE)
         if media is not None:
-            return JSONResponse(content=media.to_dict(orient="records"))
+            return JSONResponse(content={"media_anual": round(media, 4)})
         raise HTTPException(status_code=404, detail="Dados do CDI não disponíveis")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao calcular média anual: {str(e)}")

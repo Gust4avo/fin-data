@@ -2,10 +2,14 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 from babel.dates import format_date
-from etl.taxa_loader import carregar_taxas_selic
+import sys
+import os
 
-# Importa a função correta
-from app.simulador_logic import simular_investimento
+# Adiciona o diretório raiz ao path de importação
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+# Importa a função do simulador
+from simulador_logic import calcular_simulacao
 
 # Título e descrição
 st.title("Simulador de Investimento Real")
@@ -23,23 +27,16 @@ with col2:
         ["Conservador (0.5% a.m.)", "Moderado (0.8% a.m.)", "Agressivo (1.2% a.m.)", "SELIC", "CDI"]
     )
 
-# Taxas fixas e variáveis
-taxas_fixas = {
-    "Conservador (0.5% a.m.)": 0.005,
-    "Moderado (0.8% a.m.)": 0.008,
-    "Agressivo (1.2% a.m.)": 0.012
-}
-
-dados_taxas = {
-    "SELIC": [0.0113, 0.0108, 0.0104, 0.0102],
-    "CDI": [0.0111, 0.0106, 0.0103, 0.0100]
-}
+# Status para mostrar mensagens de carregamento
+status = st.empty()
 
 # Botão calcular
 if st.button("Calcular"):
-    historico, meses, total_aportado, rendimento_estimado, data_final = simular_investimento(
-        saldo_inicial, aporte_mensal, meta, tipo, taxas_fixas, dados_taxas
-    )
+    with st.spinner("Buscando taxas atualizadas e calculando..."):
+        # A função agora busca os dados da API automaticamente quando necessário
+        meses, historico, total_aportado, rendimento_estimado, data_final = calcular_simulacao(
+            saldo_inicial, aporte_mensal, meta, tipo
+        )
 
     # Resultados
     anos, meses_restantes = divmod(meses, 12)
