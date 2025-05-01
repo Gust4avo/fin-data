@@ -18,7 +18,7 @@ def calcular_media_anual_cdi(caminho_csv):
         pandas.DataFrame: DataFrame com médias anuais do CDI ou None em caso de erro
     """
     if not os.path.exists(caminho_csv):
-        logger.error(f"❌ Arquivo não encontrado: {caminho_csv}")
+        logger.error(f" Arquivo não encontrado: {caminho_csv}")
         return None
 
     try:
@@ -43,7 +43,7 @@ def calcular_media_anual_cdi(caminho_csv):
         return media_anual
 
     except Exception as erro:
-        logger.error(f"❌ Erro ao calcular média anual do CDI: {erro}", exc_info=True)
+        logger.error(f" Erro ao calcular média anual do CDI: {erro}", exc_info=True)
         return None
 
 if __name__ == "__main__":
@@ -55,9 +55,9 @@ if __name__ == "__main__":
         
         if media_anual is not None:
             media_anual.to_csv(CDI_ANNUAL_CSV, index=False)
-            print(f"✅ CSV com média anual do CDI salvo com sucesso em: {CDI_ANNUAL_CSV}")
+            print(f" CSV com média anual do CDI salvo com sucesso em: {CDI_ANNUAL_CSV}")
         else:
-            print("❌ Não foi possível calcular a média anual do CDI")
+            print(" Não foi possível calcular a média anual do CDI")
     
     except Exception as e:
-        print(f"❌ Erro ao processar arquivo CDI: {e}")
+        print(f" Erro ao processar arquivo CDI: {e}")
